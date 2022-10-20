@@ -20,7 +20,7 @@ export const SendSplToken = ({ mintSplToken, toPublicKey }: IProps) => {
     return <></>;
   }
 
-  const sendPop = async () => {
+  const sendSPL = async () => {
     setLoading("CREATING");
 
     try {
@@ -85,21 +85,22 @@ export const SendSplToken = ({ mintSplToken, toPublicKey }: IProps) => {
       console.log("response", txHash);
     } catch (error) {
       console.error(error);
+      setLoading("NOT_LOADING");
     }
   };
+  const toAddresss =
+    toPublicKey.toString().slice(0, 3) +
+    "..." +
+    toPublicKey.toString().slice(-3);
 
   return (
     <div>
-      <button onClick={() => sendPop()}>Send Token</button>
+      <button onClick={() => sendSPL()}>100 $POP to {toAddresss}</button>
       <p>Status: {loading}</p>
       {txHash && (
         <div>
           <p>Transaction: {txHash ? txHash : "N/A"}</p>
-          <a
-            href={`https://solscan.io/tx/${txHash}`}
-          >
-            Solscan
-          </a>
+          <a href={`https://solscan.io/tx/${txHash}`}>Solscan</a>
         </div>
       )}
     </div>
